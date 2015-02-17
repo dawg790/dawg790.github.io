@@ -15,7 +15,7 @@ var bio = {
 	"skills": [
 		"HTML", "CSS", "JavaScript", "jQuery", "SharePoint"
 	],
-	"biopic": "images/Nick.jpg",
+	"biopic": "images/nick.jpg",
 	"display": function() {
 		var formattedName = HTMLheaderName.replace('%data%', bio.name);
 		var formattedRole = HTMLheaderRole.replace('%data%', bio.role);
