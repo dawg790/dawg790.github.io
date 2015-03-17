@@ -499,12 +499,12 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 
 // Moves the sliding background pizzas based on scroll position
 var items = document.getElementsByClassName('mover');
-var phase = document.body.scrollTop / 1250;
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
   for (var i = 0; i < items.length; i++) {
+    var phase = document.body.scrollTop / 1250;
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
 
