@@ -507,6 +507,7 @@ function updatePositions() {
   for (var i = 0; i < items.length; i++) {
     // items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
     var prop = "translateX(" + phase + "px)";
+    console.log(prop);
     items[i].style.transform = prop;
   }
 
