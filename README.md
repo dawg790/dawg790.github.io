@@ -1,3 +1,29 @@
+## dawg790 Optimizations
+
+### Index.html
+
+The following steps were taken to acheive a PageSpeed Insight score of 90 or higher
+1: The Google webfont styles were placed inline (I used the code from the source URL)
+2: The styles from style.css were also placed inline
+3: The pizzeria.jpg image was optimized and replaced saving many bytes of data.
+4: Both scripts were set to run asynchronously.
+5: The print.css was file was changed to render block only on print media.
+6: Finally, the HTML file was minified and delivered as the production version.
+
+### pizza.html
+
+The following steps were taken to ensure a 60fps frame rate.
+1: All the for loops were optimized so that any redundant variable creation was moved outside the loop.
+2: All uses of querySelector or querySelectorAll were replaced with getElementById or getElementsByClassName.
+3: The number of pizzas generated on screen was decreased.
+4: The changeSliderLabel function was optimized by utilizing #1 and #2 above.
+5: The requestAnimationFrame function was used to group painting of pizza elements on the screen.
+6: The scrollY calculation was moved outside the for loop in the updatePositions function so that it wasn't
+calculated for every pizza.
+7: The phase variable was optimized to use parseInt to force shorter number calculation.
+8: CSS3 transform property was used in place of style.left to force load onto the GPU.
+
+
 ## Website Performance Optimization portfolio project
 
 Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
@@ -71,7 +97,6 @@ Feeling uninspired by the portfolio? Here's a list of cool portfolios I found af
 * <a href="http://nicoledominguez.com/portfolio/">http://nicoledominguez.com/portfolio/</a>
 * <a href="http://www.roxannecook.com/">http://www.roxannecook.com/</a>
 * <a href="http://www.84colors.com/portfolio.html">http://www.84colors.com/portfolio.html</a>
-
 
 Project Links:
 * <a href="https://www.udacity.com/wiki/ud884">Web Optimization Wiki</a>
