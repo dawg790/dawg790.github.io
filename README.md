@@ -2,7 +2,7 @@
 
 ### Index.html
 
-The following steps were taken to acheive a PageSpeed Insight score of 90 or higher
+The following steps were taken to acheive a PageSpeed Insight score of 90 or higher:
 1. The Google webfont styles were placed inline (I used the code from the source URL)
 2. The styles from style.css were also placed inline
 3. The pizzeria.jpg image was optimized and replaced saving many bytes of data.
@@ -12,7 +12,7 @@ The following steps were taken to acheive a PageSpeed Insight score of 90 or hig
 
 ### pizza.html
 
-The following steps were taken to ensure a 60fps frame rate.
+The following steps were taken to ensure a 60fps frame rate:
 1. All the for loops were optimized so that any redundant variable creation was moved outside the loop.
 2. All uses of querySelector or querySelectorAll were replaced with getElementById or getElementsByClassName.
 3. The number of pizzas generated on screen was decreased.
