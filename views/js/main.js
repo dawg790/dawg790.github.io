@@ -541,7 +541,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
   var holder = document.getElementById("movingPizzas1");
-  for (var i = 0; i < 25; i++) {
+  for (var i = 0; i < 15; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
