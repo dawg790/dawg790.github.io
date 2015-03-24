@@ -522,7 +522,7 @@ function updatePositions() {
       items[i].style.transform = "translateX(" + 100 * phase + "px)";
       // items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
     }
-
+  }
   window.requestAnimationFrame(moveThem);
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
