@@ -20,7 +20,7 @@ The following steps were taken to ensure a 60fps frame rate.
 5. The requestAnimationFrame function was used to group painting of pizza elements on the screen.
 6. The scrollY calculation was moved outside the for loop in the updatePositions function so that it wasn't
 calculated for every pizza.
-7. The phase variable was optimized to use parseInt to force shorter number calculation.
+7. The phase variable was optimized as was the use of translate3d in the loop.
 8. CSS3 transform property was used in place of style.left to force load onto the GPU.
 
 

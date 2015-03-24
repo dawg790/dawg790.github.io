@@ -436,38 +436,32 @@ var resizePizzas = function(size) {
       switch(size) {
         case "1":
           return 0.25;
-          break;
         case "2":
           return 0.3333;
-          break;
         case "3":
           return 0.5;
-          break;
         default:
           console.log("bug in sizeSwitcher");
       }
     }
-
     var newsize = sizeSwitcher(size);
     var dx = (newsize - oldsize) * windowwidth;
-
     return dx;
   }
 
   // Iterates through pizza elements on the page and changes their widths
   // dawg790: created pizzaItems array outside of the loop and improved the var calculations inside the loop
-  var pizzaItems = document.getElementsByClassName("randomPizzaContainer");
   function changePizzaSizes(size) {
-    for (var i = 0; i < pizzaItems.length; i++) {
-      var dx = determineDx(pizzaItems[i], size);
+    var pizzaItems = document.getElementsByClassName("randomPizzaContainer");
+    var pizzaItemsLen = pizzaItems.length;
+    var dx = determineDx(pizzaItems[0], size);
+    for (var i = 0; i < pizzaItemsLen; i++) {
       var newwidth = (pizzaItems[i].offsetWidth + dx) + 'px';
       pizzaItems[i].style.width = newwidth;
     }
   }
 
   changePizzaSizes(size);
-  // dawg790: not sure that I have used the rAF function correctly here.
-  window.requestAnimationFrame(changePizzaSizes);
 
   // User Timing API is awesome
   window.performance.mark("mark_end_resize");
@@ -482,7 +476,7 @@ window.performance.mark("mark_start_generating"); // collect timing data
 // dawg790: Added this to a function, so it could be called in a requestAnimationFrame function
 function initialPizzaGen() {
   var pizzasDiv = document.getElementById("randomPizzas");
-  for (var i = 2; i < 15; i++) {
+  for (var i = 2; i < 10; i++) {
     pizzasDiv.appendChild(pizzaElementGenerator(i));
   }
 }
@@ -523,12 +517,14 @@ function updatePositions() {
   var scrollPos = document.body.scrollTop / 1250;
   // dawg790: created a new function, so it could be added to a rAF call
   function moveThem() {
-    for (var i = 0; i < items.length; i++) {
-      // dawg790: Used parseInt here to shorten the calculation being made.
-      var phase = parseInt(Math.sin(scrollPos + (i % 5)) * 100);
-      // dawg790: Attempted to use transform here to reduce the paint events
-      items[i].style.transform = "translateX(" + phase + "px)";
-      // items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+    var itemsLen = items.length;
+    for (var i = 0; i < itemsLen; i++) {
+      // dawg790: Updated calculation of phase variable
+      var phase = Math.sin(scrollPos + (i % 5));
+      var move = items[i].basicLeft + 100 * phase;
+      // dawg790: Using translate3d here to try and reduce paint events.
+      items[i].style.transform = "translate3d(" + move + "px,0,0)";
+      // items[i].style.left = parseInt(items[i].basicLeft + 100 * phase) + 'px';
     }
   }
   window.requestAnimationFrame(moveThem);
@@ -548,16 +544,21 @@ window.addEventListener('scroll', updatePositions);
 
 // Generates the sliding pizzas when the page loads.
 // dawg790: created the holder variable outside the loop
+/* dawg790: added two styles to pizzas to assist animation (style.left so translate3d would work,
+ * and transform: translateZ(0) to put the pizzas in their own layer)
+ */
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
   var holder = document.getElementById("movingPizzas1");
-  for (var i = 0; i < 25; i++) {
+  for (var i = 0; i < 50; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
     elem.style.height = "100px";
     elem.style.width = "73.333px";
+    elem.style.left = "0px";
+    elem.style.transform = "translateZ(0)";
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
     holder.appendChild(elem);
