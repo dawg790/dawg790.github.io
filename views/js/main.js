@@ -433,13 +433,13 @@ var resizePizzas = function(size) {
     // Changes the slider value to a percent width
     function sizeSwitcher (size) {
       switch(size) {
-        case 1:
+        case "1":
           return 0.25;
           break;
-        case 2:
+        case "2":
           return 0.3333;
           break;
-        case 3:
+        case "3":
           return 0.5;
           break;
         default:
@@ -518,9 +518,10 @@ function updatePositions() {
   var scrollPos = document.body.scrollTop / 1250;
   function moveThem() {
     for (var i = 0; i < items.length; i++) {
-      var phase = Math.sin(scrollPos + (i % 5));
-      items[i].style.transform = "translateX(" + 100 * phase + "px)";
-      // items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+      // Usage of parseInt to shorten the number being calculated
+      var phase = parseInt(Math.sin(scrollPos + (i % 5)) * 100);
+      items[i].style.transform = "translateX(" + phase + "px)";
+      // items[i].style.left = items[i].basicLeft + phase + 'px';
     }
   }
   window.requestAnimationFrame(moveThem);
@@ -543,7 +544,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
   var holder = document.getElementById("movingPizzas1");
-  for (var i = 0; i < 15; i++) {
+  for (var i = 0; i < 25; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
