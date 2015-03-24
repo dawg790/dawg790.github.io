@@ -513,6 +513,7 @@ var items = document.getElementsByClassName('mover');
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
+
   // Adding the sliding of the pizzas to a requestAnimationFrame function
   var scrollPos = document.body.scrollTop / 1250;
   function moveThem() {
@@ -521,8 +522,9 @@ function updatePositions() {
       items[i].style.transform = "translateX(" + 100 * phase + "px)";
       // items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
     }
-  }
+
   window.requestAnimationFrame(moveThem);
+
   // User Timing API to the rescue again. Seriously, it's worth learning.
   // Super easy to create custom metrics.
   window.performance.mark("mark_end_frame");
