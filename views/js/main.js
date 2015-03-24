@@ -403,7 +403,7 @@ var resizePizzas = function(size) {
   window.performance.mark("mark_start_resize");   // User Timing API function
 
   // Changes the value for the size of the pizza above the slider
-  // Included a variable to store the pizzaSize element
+  // dawg790: Included a variable to store the pizzaSize element instead of calculating for every case.
   function changeSliderLabel(size) {
     var label = document.getElementById('pizzaSize');
     switch(size) {
@@ -431,6 +431,7 @@ var resizePizzas = function(size) {
 
     // TODO: change to 3 sizes? no more xl?
     // Changes the slider value to a percent width
+    // dawg790: added break statements to each case, but not honestly sure if that was an optimization
     function sizeSwitcher (size) {
       switch(size) {
         case "1":
@@ -454,6 +455,7 @@ var resizePizzas = function(size) {
   }
 
   // Iterates through pizza elements on the page and changes their widths
+  // dawg790: created pizzaItems array outside of the loop and improved the var calculations inside the loop
   var pizzaItems = document.getElementsByClassName("randomPizzaContainer");
   function changePizzaSizes(size) {
     for (var i = 0; i < pizzaItems.length; i++) {
@@ -464,6 +466,7 @@ var resizePizzas = function(size) {
   }
 
   changePizzaSizes(size);
+  // dawg790: not sure that I have used the rAF function correctly here.
   window.requestAnimationFrame(changePizzaSizes);
 
   // User Timing API is awesome
@@ -476,7 +479,7 @@ var resizePizzas = function(size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
-// Added this to a function, so it could be called in a requestAnimationFrame function
+// dawg790: Added this to a function, so it could be called in a requestAnimationFrame function
 function initialPizzaGen() {
   var pizzasDiv = document.getElementById("randomPizzas");
   for (var i = 2; i < 15; i++) {
@@ -509,19 +512,23 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
 
 // Moves the sliding background pizzas based on scroll position
+// dawg790: I moved the items array outside of the function so it's not created on every scroll
 var items = document.getElementsByClassName('mover');
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
   // Adding the sliding of the pizzas to a requestAnimationFrame function
+  // dawg790: moved the scrollY postion calculation outside the loop
   var scrollPos = document.body.scrollTop / 1250;
+  // dawg790: created a new function, so it could be added to a rAF call
   function moveThem() {
     for (var i = 0; i < items.length; i++) {
-      // Usage of parseInt to shorten the number being calculated
+      // dawg790: Used parseInt here to shorten the calculation being made.
       var phase = parseInt(Math.sin(scrollPos + (i % 5)) * 100);
+      // dawg790: Attempted to use transform here to reduce the paint events
       items[i].style.transform = "translateX(" + phase + "px)";
-      // items[i].style.left = items[i].basicLeft + phase + 'px';
+      // items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
     }
   }
   window.requestAnimationFrame(moveThem);
@@ -540,6 +547,7 @@ function updatePositions() {
 window.addEventListener('scroll', updatePositions);
 
 // Generates the sliding pizzas when the page loads.
+// dawg790: created the holder variable outside the loop
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
