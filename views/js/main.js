@@ -518,8 +518,8 @@ function updatePositions() {
   var scrollPos = document.body.scrollTop / 1250;
   function moveThem() {
     for (var i = 0; i < items.length; i++) {
-      var phase = Math.sin(scrollPos + (i % 5));
-      items[i].style.transform = "translateX(" + 100 * phase + "px)";
+      var phase = Math.sin(scrollPos + (i % 5)) * 100;
+      items[i].style.transform = "translateX(" + phase + "px)";
       // items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
     }
   }
