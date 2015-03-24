@@ -518,7 +518,7 @@ function updatePositions() {
   var scrollPos = document.body.scrollTop / 1250;
   function moveThem() {
     for (var i = 0; i < items.length; i++) {
-      var phase = Math.sin(scrollPos + (i % 5)) * 100;
+      var phase = parseInt(Math.sin(scrollPos + (i % 5)) * 100);
       items[i].style.transform = "translateX(" + phase + "px)";
       // items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
     }
@@ -543,7 +543,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
   var holder = document.getElementById("movingPizzas1");
-  for (var i = 0; i < 15; i++) {
+  for (var i = 0; i < 25; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
