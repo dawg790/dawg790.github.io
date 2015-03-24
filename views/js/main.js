@@ -433,13 +433,13 @@ var resizePizzas = function(size) {
     // Changes the slider value to a percent width
     function sizeSwitcher (size) {
       switch(size) {
-        case 1:
+        case "1":
           return 0.25;
           break;
-        case 2:
+        case "2":
           return 0.3333;
           break;
-        case 3:
+        case "3":
           return 0.5;
           break;
         default:
