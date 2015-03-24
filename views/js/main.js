@@ -516,9 +516,10 @@ function updatePositions() {
   function moveThem() {
     for (var i = 0; i < items.length; i++) {
       var phase = Math.sin(scrollPos + (i % 5));
+      var move = items[i].basicLeft + 100 * phase;
       // items[i].style.transform += "translate3d(" + 100 * phase + "px,0,0)";
       // items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
-      items[i].style.transform = "translateX(" + 100 * phase + "px)";
+      items[i].style.transform = "translateX(" + move + "px)";
     }
   }
   window.requestAnimationFrame(moveThem);
