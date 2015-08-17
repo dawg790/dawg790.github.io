@@ -16,7 +16,7 @@
         <Style>
           <LineStyle>
             <color>c60000ff</color>
-            <width>0.6000</width>
+            <width>4</width>
           </LineStyle>
         </Style>
         <MultiGeometry>
