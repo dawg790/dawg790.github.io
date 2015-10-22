@@ -31,7 +31,7 @@
 			</div> --></div></div><script src="js/jquery.min.js"></script><script src="js/knockout.js"></script><script src="js/app.min.js"></script><script>$('.inventory-pics img').click(function() {
 		// Get the image source when a user clicks on it
 		var source = $(this).attr('src');
-		source = source.slice(0, -7) + ".jpg";
+		source = source.replace(/_sm/g, '');
 		console.log(source);
 		var $aTag = $(this).parent().parent().prev().children();
 		var $imgTag = $(this).parent().parent().prev().children().children();
