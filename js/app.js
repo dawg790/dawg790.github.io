@@ -1,9 +1,8 @@
 
-/* Our Customer Database
- *
+/* Orders placed online
  * For a new order, add a new object to the orders database below
  * For updates to an order, update the stats in each entry
- * Take a picture of progress and add it to the src/images folder and run gulp images
+ *
  */
 var orders = [
   {
@@ -13,18 +12,28 @@ var orders = [
     "status": "In Progress",
     "completionDate": "July 1, 2015",
     "notes": "Box is completed, first coat of Tung Oil has been applied.",
-    "pic": "images/box9.jpg"
+    "tracking": "123"
   },
   {
     "firstName": "Wendy",
     "lastName": "Yetterberg",
     "orderNumber": "000002",
-    "status": "Not Started Yet",
-    "completionDate": "August 21, 2015",
-    "notes": "All the parts are planed and jointed and ready to be cut to size.",
-    "pic": "images/box1.jpg"
+    "status": "Complete",
+    "completionDate": "October 20, 2015",
+    "notes": "Shipped!",
+    "tracking": "456"
   }
 ];
+
+// Current Inventory. The values are pulled from the valueText variable on the Build page.
+// Keep this updated with the current boxes in stock
+var inventory = [
+  'Jewelry Box - Wood: Walnut. Inlay: Chevron #1 +$25. Velvet: Black. Size: Standard: 8" x 12"',
+  'Jewelry Box - Wood: Mahogany. Inlay: Black Line #2 +$25. Velvet: Black. Size: Standard: 8" x 12"',
+  'Jewelry Box - Wood: Mahogany. Inlay: Blocks #3 +$25. Velvet: Red. Size: Large: 10" x 14" +$40',
+  'Jewelry Box - Wood: Mahogany. Inlay: Alternating Blocks #4 +$25. Velvet: Red. Size: Large: 10" x 14" +$40'
+];
+
 
 var ViewModel = function () {
   var self = this;
@@ -88,11 +97,14 @@ var ViewModel = function () {
         $('.status span').text(self.allOrders()[i].status);
         $('.completion span').text(self.allOrders()[i].completionDate);
         $('.notes span').text(self.allOrders()[i].notes);
-        $('.pic img').attr('src', self.allOrders()[i].pic).attr('width', '300');
+        $('.tracking span').text(self.allOrders()[i].tracking);
         found = true;
         break;
       }
     }
+    // Put tracking number into USPS tracking field
+    if (found) $('.tracking a').attr("href", "https://tools.usps.com/go/TrackConfirmAction?tLabels=" + self.allOrders()[i].tracking);
+
     // If our found variable is false, we did not find the order
     if (!found) $('.status span').html("We did not find that order. Please <a href='mailto:nick@wispcreekdesign.com'>Email Us</a.");
 
@@ -101,8 +113,7 @@ var ViewModel = function () {
 
   // On click within the inputs, clear the Order Status input fields
   self.clearFields = function () {
-    $('.status span, .completion span, .buyer span, .notes span').text("");
-    $('.pic img').attr('src', "").attr('width', '0');
+    $('.status span, .completion span, .buyer span, .notes span, .tracking span').text("");
     $('#order-num, #order-name').val("");
   };
 
@@ -111,6 +122,33 @@ var ViewModel = function () {
     $('.lines-button').toggleClass('close');
     $('header .header-content .header-nav .nav').toggleClass('open');
     $('.tagline').fadeToggle();
+  };
+
+  // Inventory Check
+  self.checkInventory = function () {
+    // On click this shows the spinning icon and hides both messages
+    $('.fa-pulse').show();
+    $('.messageNA, .messageAvail').hide();
+    var result; // We store the result of the findings in a variable
+
+    setTimeout(function() { // After the timer, hide the spinner, and show the correct message
+      $('.fa-pulse').hide();
+      for (var i = 0; i < inventory.length; i++) {
+        if (valueText === inventory[i]) {
+          result = true;
+          break;
+        } else {
+          result = false;
+        }
+      };
+
+      // Based on the value of the result variable, show the correct message
+      if (result) $('.messageAvail').show();
+      if (!result) $('.messageNA').show();
+
+    }, 1500);
+
+    return false;
   };
 
 };
@@ -127,8 +165,8 @@ var w = window,
 	g = d.getElementsByTagName('body')[0],
 	x = w.innerWidth || e.clientWidth || g.clientWidth,
 	y = w.innerHeight || e.clientHeight || g.clientHeight;
-console.log(x);
-console.log(y);
+console.log("x: " + x);
+console.log("y: " + y);
 
 // Header styling changes on Scroll
 $(document).scroll(function() {
@@ -136,13 +174,13 @@ $(document).scroll(function() {
 		$('.icon').css('display', 'none');
 		$('.nav li').css('line-height', '47px');
 		$('header').css('border-bottom', '1px solid #e9e9e9');
-	} else if ( $(this).scrollTop() === 0 && x > 550) {
+	} else if ( $(this).scrollTop() === 0 && x > 850) {
 		$('.icon').css('display', 'block');
 		$('.nav li').css('line-height', '74px');
 		$('header').css('border-bottom', 'none');
-	} else if ( $(this).scrollTop() === 0 && x < 550) {
+	} else if ( $(this).scrollTop() === 0 && x < 850) {
 		$('.icon').css('display', 'block');
-		$('.nav li').css('line-height', '47px');
+		$('.nav li').css('line-height', '40px');
 		$('header').css('border-bottom', 'none');
 	}
 });
